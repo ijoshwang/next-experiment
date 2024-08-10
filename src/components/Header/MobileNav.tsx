@@ -5,6 +5,7 @@ import {
   Sheet,
   SheetContent,
   SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
@@ -30,16 +31,18 @@ const MobileNav = () => {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right" className="pr-0">
+      <SheetContent side="right" className="pr-0" aria-describedby={undefined}>
         <SheetHeader>
-          <MobileLink
-            href="/"
-            className="flex items-center space-x-1"
-            onOpenChange={setOpen}
-          >
-            <Presentation className="w-5 h-5" />
-            <span className="font-bold">{siteConfig.name}</span>
-          </MobileLink>
+          <SheetTitle>
+            <MobileLink
+              href="/"
+              className="flex items-center space-x-1"
+              onOpenChange={setOpen}
+            >
+              <Presentation className="w-5 h-5" />
+              <span className="font-bold">{siteConfig.name}</span>
+            </MobileLink>
+          </SheetTitle>
         </SheetHeader>
         <ScrollArea className="h-[calc(100vh-8rem)] pb-10 pl-6 mt-4">
           <div className="flex flex-col space-y-3 text-left">
