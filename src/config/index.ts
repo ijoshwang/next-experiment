@@ -9,10 +9,6 @@ export const navConfig: NavItem[] = [
     title: 'Add',
     href: '/add',
   },
-  {
-    title: 'List',
-    href: '/list',
-  },
 ];
 
 export const VALIDATION_MESSAGE = {

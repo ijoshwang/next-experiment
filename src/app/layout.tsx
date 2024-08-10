@@ -26,7 +26,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div>
+          <div className="min-h-screen">
             <Header />
             <main className="w-full px-4 md:px-8 py-6 flex flex-col sm:max-w-7xl m-auto">
               {children}

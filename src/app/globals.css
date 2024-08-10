@@ -66,4 +66,11 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .table-head-cell {
+    @apply py-4 pl-4 pr-3 text-left text-sm font-semibold sm:pl-6;
+  }
+  .table-content-cell {
+    @apply whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6;
+  }
 }
