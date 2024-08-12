@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import PasswordStrength from '@/components/password-strength'
+import PasswordStrength from '@/components/PasswordStrength'
 import TooltipWrapper from '@/components/TooltipWrapper'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
