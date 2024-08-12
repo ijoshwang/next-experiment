@@ -57,7 +57,7 @@ http://localhost:3000
 - Database on **Neon**
 - Written in **TypeScript**
 - Authentication using **NextAuth.js**
-- state management using **Jotai**
+- State management using **Jotai**
 
 ### Why Neon?
 
