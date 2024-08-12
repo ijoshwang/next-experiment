@@ -1,8 +1,8 @@
 // providers.js (app directory)
-'use client';
+'use client'
 
-import { Provider } from 'jotai';
+import { Provider } from 'jotai'
 
 export default function JotaiProviders({ children }: { children: any }) {
-  return <Provider>{children}</Provider>;
+  return <Provider>{children}</Provider>
 }

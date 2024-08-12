@@ -1,4 +1,5 @@
-import { IUser } from '@/types';
-import { atom } from 'jotai';
+import { atom } from 'jotai'
 
-export const userInfoAtom = atom<IUser | null>(null);
+import { IUser } from '@/types'
+
+export const userInfoAtom = atom<IUser | null>(null)

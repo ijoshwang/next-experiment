@@ -1,17 +1,20 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
-import { useFormState } from 'react-dom';
-import { registerAction } from '@/lib/auth.action';
-import { useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { AlertCircle, Eye, EyeOff, Info } from 'lucide-react';
-import Link from 'next/link';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react'
+import { useFormState } from 'react-dom'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { passwordStrength } from 'check-password-strength'
+import { AlertCircle, Eye, EyeOff, Info } from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { z } from 'zod'
+
+import PasswordStrength from '@/components/password-strength'
+import TooltipWrapper from '@/components/TooltipWrapper'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -20,18 +23,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { registerFormSchema } from '@/lib/formSchema';
-import { toast } from 'sonner';
-import { passwordStrength } from 'check-password-strength';
-import PasswordStrength from '@/components/password-strength';
-import TooltipWrapper from '@/components/TooltipWrapper';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { registerAction } from '@/lib/auth.action'
+import { registerFormSchema } from '@/lib/formSchema'
 
 const RegisterForm = () => {
-  const [state, formAction] = useFormState(registerAction, undefined);
-  const router = useRouter();
-  const [passStrength, setPassStrength] = useState(0); // State to track password strength.
-  const [isVisiblePass, setIsVisiblePass] = useState(false); // State to toggle password visibility.
+  const [state, formAction] = useFormState(registerAction, undefined)
+  const router = useRouter()
+  const [passStrength, setPassStrength] = useState(0) // State to track password strength.
+  const [isVisiblePass, setIsVisiblePass] = useState(false) // State to toggle password visibility.
 
   const form = useForm<z.infer<typeof registerFormSchema>>({
     resolver: zodResolver(registerFormSchema),
@@ -41,32 +42,32 @@ const RegisterForm = () => {
       password: '',
       confirmPassword: '',
     },
-  });
+  })
 
   function onSubmit(values: z.infer<typeof registerFormSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
-    formAction(values);
+    console.log(values)
+    formAction(values)
   }
 
   useEffect(() => {
     if (state?.success) {
       toast('Your account has been created! ', {
         description: 'Please check your email for verification.',
-      });
-      router.push('/login');
+      })
+      router.push('/login')
     }
-  }, [state?.success, router]);
+  }, [state?.success, router])
 
   const toggleVisblePass = () => {
-    setIsVisiblePass((prev) => !prev);
-  }; // Toggle password visibility.
+    setIsVisiblePass((prev) => !prev)
+  } // Toggle password visibility.
 
-  const { password } = form.watch(); // Watch the password input for changes.
+  const { password } = form.watch() // Watch the password input for changes.
   useEffect(() => {
-    setPassStrength(passwordStrength(password).id); // Update password strength on change.
-  }, [password]);
+    setPassStrength(passwordStrength(password).id) // Update password strength on change.
+  }, [password])
 
   return (
     <>
@@ -203,7 +204,7 @@ const RegisterForm = () => {
         </form>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default RegisterForm;
+export default RegisterForm

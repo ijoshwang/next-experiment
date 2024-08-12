@@ -1,24 +1,26 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import { siteConfig } from '@/config/site';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import Header from '@/components/Header/Header';
-import { Toaster } from '@/components/ui/sonner';
-import JotaiProviders from '@/components/JotaiProvider';
-import { SessionProvider } from 'next-auth/react';
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { SessionProvider } from 'next-auth/react'
 
-const inter = Inter({ subsets: ['latin'] });
+import Header from '@/components/Header/Header'
+import JotaiProviders from '@/components/JotaiProvider'
+import { ThemeProvider } from '@/components/ThemeProvider'
+import { Toaster } from '@/components/ui/sonner'
+import { siteConfig } from '@/config/site'
+
+import './globals.css'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
@@ -43,5 +45,5 @@ export default function RootLayout({
         </JotaiProviders>
       </body>
     </html>
-  );
+  )
 }

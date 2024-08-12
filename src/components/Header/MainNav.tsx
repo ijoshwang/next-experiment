@@ -1,15 +1,16 @@
-'use client';
+'use client'
 
-import { navConfig } from '@/config';
-import { siteConfig } from '@/config/site';
-import { cn } from '@/lib/utils';
-import { Presentation } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React from 'react';
+import React from 'react'
+import { Presentation } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+import { navConfig } from '@/config'
+import { siteConfig } from '@/config/site'
+import { cn } from '@/lib/utils'
 
 const MainNav = () => {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   return (
     <div className="mr-4 hidden md:flex">
@@ -37,7 +38,7 @@ const MainNav = () => {
         ))}
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default MainNav;
+export default MainNav

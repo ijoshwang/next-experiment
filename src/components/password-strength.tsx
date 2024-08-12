@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'
 
 interface Props {
-  passStrength: number;
+  passStrength: number
 }
 
 export default function PasswordStrength({ passStrength }: Props) {
@@ -19,5 +19,5 @@ export default function PasswordStrength({ passStrength }: Props) {
         ></div>
       ))}
     </div>
-  );
+  )
 }

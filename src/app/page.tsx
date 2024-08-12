@@ -1,4 +1,4 @@
-import TableList from '@/components/TableList';
+import TableList from '@/components/TableList'
 
 export default async function Home() {
   return (
@@ -8,5 +8,5 @@ export default async function Home() {
         <TableList />
       </div>
     </main>
-  );
+  )
 }

@@ -1,19 +1,20 @@
-import React from 'react';
+import React from 'react'
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
+} from '@/components/ui/tooltip'
 
 const TooltipWrapper = ({
   children,
   title,
   shortcutKey,
 }: {
-  children: React.ReactNode;
-  title: string;
-  shortcutKey?: string;
+  children: React.ReactNode
+  title: string
+  shortcutKey?: string
 }) => {
   return (
     <TooltipProvider>
@@ -29,7 +30,7 @@ const TooltipWrapper = ({
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
-  );
-};
+  )
+}
 
-export default TooltipWrapper;
+export default TooltipWrapper

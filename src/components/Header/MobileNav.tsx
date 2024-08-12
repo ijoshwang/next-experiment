@@ -1,24 +1,25 @@
-'use client';
+'use client'
 
-import React from 'react';
+import React from 'react'
+import { Menu, Presentation } from 'lucide-react'
+import Link, { LinkProps } from 'next/link'
+import { useRouter } from 'next/navigation'
+
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
-import { Presentation, Menu } from 'lucide-react';
-import Link, { LinkProps } from 'next/link';
-import { useRouter } from 'next/navigation';
-import { cn } from '@/lib/utils';
-import { siteConfig } from '@/config/site';
-import { navConfig } from '@/config';
-import { ScrollArea } from '@/components/ui/scroll-area';
+} from '@/components/ui/sheet'
+import { navConfig } from '@/config'
+import { siteConfig } from '@/config/site'
+import { cn } from '@/lib/utils'
 
 const MobileNav = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -62,13 +63,13 @@ const MobileNav = () => {
         </ScrollArea>
       </SheetContent>
     </Sheet>
-  );
-};
+  )
+}
 
 interface MobileLinkProps extends LinkProps {
-  onOpenChange?: (open: boolean) => void;
-  children: React.ReactNode;
-  className?: string;
+  onOpenChange?: (open: boolean) => void
+  children: React.ReactNode
+  className?: string
 }
 
 function MobileLink({
@@ -78,20 +79,21 @@ function MobileLink({
   children,
   ...props
 }: MobileLinkProps) {
-  const router = useRouter();
+  const router = useRouter()
+
   return (
     <Link
       href={href}
       onClick={() => {
-        router.push(href.toString());
-        onOpenChange?.(false);
+        router.push(href.toString())
+        onOpenChange?.(false)
       }}
       className={cn(className)}
       {...props}
     >
       {children}
     </Link>
-  );
+  )
 }
 
-export default MobileNav;
+export default MobileNav

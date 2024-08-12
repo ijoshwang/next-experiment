@@ -1,9 +1,10 @@
-import NextAuth, { CredentialsSignin } from 'next-auth';
-import credentials from 'next-auth/providers/credentials';
 // import github from "next-auth/providers/github"
 // import google from "next-auth/providers/google"
-import bcrypt from 'bcryptjs';
-import { findUserByEmail } from './lib/action';
+import bcrypt from 'bcryptjs'
+import NextAuth, { CredentialsSignin } from 'next-auth'
+import credentials from 'next-auth/providers/credentials'
+
+import { findUserByEmail } from './lib/action'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -25,29 +26,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
 
       async authorize(credentials, req) {
-        console.log('=====[CredentialsProvider]authorize', credentials);
-        try {
-          const user = await findUserByEmail(credentials?.email as string);
+        console.log('=====[CredentialsProvider]authorize', credentials)
 
-          if (!user) throw new Error('User name or password is not correct');
+        try {
+          const user = await findUserByEmail(credentials?.email as string)
+
+          if (!user) throw new Error('User name or password is not correct')
 
           if (!credentials?.password)
-            throw new Error('Please provide your password.');
+            throw new Error('Please provide your password.')
 
           const isPassowrdCorrect = await bcrypt.compare(
             credentials.password as string,
             user.password as string
-          );
+          )
 
           if (!isPassowrdCorrect)
-            throw new Error('User name or password is not correct.');
+            throw new Error('User name or password is not correct.')
 
-          const { password, ...userWithoutPass } = user;
+          const { password, ...userWithoutPass } = user
 
-          return userWithoutPass as any;
+          return userWithoutPass as any
         } catch (error: any) {
-          console.log('---[auth]authorize error:', error.message);
-          throw new CredentialsSignin(error.message);
+          console.log('---[auth]authorize error:', error.message)
+          throw new CredentialsSignin(error.message)
         }
       },
     }),
@@ -59,47 +61,52 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       account,
       user,
     }: {
-      token: any;
-      account: any;
-      user: any;
+      token: any
+      account: any
+      user: any
     }) {
-      console.log('=====[callback jwt]:', { token, account, user });
+      console.log('=====[callback jwt]:', { token, account, user })
+
       // https://next-auth.js.org/configuration/callbacks#jwt-callback
       // When an account user exists, it is the first time to log in, and subsequent requests only contain token.
       if (account && token.email) {
-        const findUser = await findUserByEmail(token.email);
+        const findUser = await findUserByEmail(token.email)
+
         if (findUser) {
-          token.id = findUser.id as string;
+          token.id = findUser.id as string
         }
       }
-      return token;
+
+      return token
     },
 
     async session({ token, session }: { session: any; token: any }) {
-      console.log('=====[callback session]:', { session, token });
+      console.log('=====[callback session]:', { session, token })
+
       if (token) {
-        session.user.id = token.id;
+        session.user.id = token.id
       }
-      return session;
+
+      return session
     },
 
     authorized({ auth, request }: { auth: any; request: any }) {
-      console.log('=====[callback] authorized auth:', auth);
-      const user = auth?.user;
-      const needAuthPage = request.nextUrl?.pathname.startsWith('/add');
+      console.log('=====[callback] authorized auth:', auth)
+      const user = auth?.user
+      const needAuthPage = request.nextUrl?.pathname.startsWith('/add')
 
-      const isLoginPage = request.nextUrl?.pathname.startsWith('/login');
-      const isRegisterPage = request.nextUrl?.pathname.startsWith('/register');
+      const isLoginPage = request.nextUrl?.pathname.startsWith('/login')
+      const isRegisterPage = request.nextUrl?.pathname.startsWith('/register')
 
       if (needAuthPage && !user) {
-        return false;
+        return false
       }
 
       if ((isRegisterPage || isLoginPage) && user) {
-        return Response.redirect(new URL('/', request.nextUrl));
+        return Response.redirect(new URL('/', request.nextUrl))
       }
 
-      return true;
+      return true
     },
   },
-});
+})

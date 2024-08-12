@@ -1,36 +1,38 @@
-'use client';
+'use client'
 
-import React, { useEffect } from 'react';
-import { Session } from 'next-auth';
-import { IUser } from '@/types';
-import Link from 'next/link';
-import { Button } from '../ui/button';
+import React, { useEffect } from 'react'
+import { useAtom } from 'jotai'
+import { LogOut } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Session } from 'next-auth'
+
+import { signOutAction } from '@/lib/auth.action'
+import { userInfoAtom } from '@/store/user'
+import { IUser } from '@/types'
+
+import { Button } from '../ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import Image from 'next/image';
-import { useAtom } from 'jotai';
-import { userInfoAtom } from '@/store/user';
-import { LogOut } from 'lucide-react';
-import { signOutAction } from '@/lib/auth.action';
+} from '../ui/dropdown-menu'
 
 const Profile = ({
   session,
   currentUserInfo,
 }: {
-  session: Session | null;
-  currentUserInfo: IUser | null;
+  session: Session | null
+  currentUserInfo: IUser | null
 }) => {
-  const [userInfo, setUserInfo] = useAtom(userInfoAtom);
+  const [userInfo, setUserInfo] = useAtom(userInfoAtom)
 
   useEffect(() => {
     if (currentUserInfo) {
-      setUserInfo(currentUserInfo);
+      setUserInfo(currentUserInfo)
     }
-  }, [currentUserInfo, setUserInfo]);
+  }, [currentUserInfo, setUserInfo])
 
   if (!session) {
     return (
@@ -39,7 +41,7 @@ const Profile = ({
           Login
         </Button>
       </Link>
-    );
+    )
   }
 
   return (
@@ -71,7 +73,7 @@ const Profile = ({
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile

@@ -1,5 +1,6 @@
-import React from 'react';
-import FormAdd from './FormAdd';
+import React from 'react'
+
+import FormAdd from './FormAdd'
 
 const PageAdd = () => {
   return (
@@ -7,7 +8,7 @@ const PageAdd = () => {
       <h2 className="text-xl font-semibold">Add user</h2>
       <FormAdd />
     </div>
-  );
-};
+  )
+}
 
-export default PageAdd;
+export default PageAdd

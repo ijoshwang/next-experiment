@@ -1,10 +1,14 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import { z } from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Loader2Icon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import { z } from 'zod'
+
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -13,14 +17,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { VALIDATION_MESSAGE } from '@/config';
-import { addCollectedUser } from '@/lib/action';
-import { ICollectedUser } from '@/types';
-import { Loader2Icon } from 'lucide-react';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { VALIDATION_MESSAGE } from '@/config'
+import { addCollectedUser } from '@/lib/action'
+import { ICollectedUser } from '@/types'
 
 /**
  * Validation:
@@ -55,11 +56,11 @@ const formSchema = z.object({
         })
         .nullable()
     ),
-});
+})
 
 const FormAdd = () => {
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,33 +68,35 @@ const FormAdd = () => {
       nickname: '',
       age: null,
     },
-  });
+  })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    console.log(values)
+
     try {
-      setLoading(true);
-      const newUser = await addCollectedUser(values as ICollectedUser);
-      console.log('add successful new user:', newUser);
+      setLoading(true)
+      const newUser = await addCollectedUser(values as ICollectedUser)
+      console.log('add successful new user:', newUser)
+
       if (newUser) {
-        form.reset();
+        form.reset()
 
         toast(`${newUser.name} Added successful`, {
           // description: ``,
           action: {
             label: 'Go Home',
             onClick: () => {
-              router.push('/');
+              router.push('/')
             },
           },
-        });
+        })
       }
     } catch (error) {
-      console.log(error);
+      console.log(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div>
@@ -153,7 +156,7 @@ const FormAdd = () => {
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default FormAdd;
+export default FormAdd

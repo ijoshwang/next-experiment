@@ -1,13 +1,13 @@
 // import { Icons } from "@/components/Icons"
 // import { Button } from "@/components/ui/button"
 // import { handleGithubLogin, handleGoogleLogin } from "@/lib/auth.action"
-import LoginForm from './LoginForm';
-import { Separator } from '@/components/ui/separator';
+
+import LoginForm from './LoginForm'
 
 interface Props {
   searchParams: {
-    callbackUrl?: string;
-  };
+    callbackUrl?: string
+  }
 }
 
 const LoginPage = async ({ searchParams }: Props) => {
@@ -32,7 +32,7 @@ const LoginPage = async ({ searchParams }: Props) => {
       <Separator className="my-4" /> */}
       <LoginForm callbackUrl={searchParams.callbackUrl} />
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

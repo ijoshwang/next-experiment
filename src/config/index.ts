@@ -1,4 +1,4 @@
-import { NavItem } from '@/types/nav';
+import { NavItem } from '@/types/nav'
 
 export const navConfig: NavItem[] = [
   {
@@ -9,10 +9,10 @@ export const navConfig: NavItem[] = [
     title: 'Add',
     href: '/add',
   },
-];
+]
 
 export const VALIDATION_MESSAGE = {
   name: 'Name must be in all capital letters.',
   nickname: 'Nickname is required.',
   age: 'Age should be between 5 and 15.',
-};
+}

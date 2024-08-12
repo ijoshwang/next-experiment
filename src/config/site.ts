@@ -7,4 +7,4 @@ export const siteConfig = {
     github: '',
     twitter: '',
   },
-};
+}

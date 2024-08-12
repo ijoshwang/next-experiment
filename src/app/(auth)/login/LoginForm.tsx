@@ -1,8 +1,8 @@
-'use client';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { loginAction } from '@/lib/auth.action';
+'use client'
+
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   AlertCircle,
   Eye,
@@ -10,25 +10,25 @@ import {
   KeyRound,
   Loader2Icon,
   Mail,
-} from 'lucide-react';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+} from 'lucide-react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
+import * as z from 'zod'
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form';
-import { useRouter } from 'next/navigation';
-import { signIn, useSession } from 'next-auth/react';
-import { ErrorCode } from '@/types/error';
-import { toast } from 'sonner';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { loginAction } from '@/lib/auth.action'
 
-type InputType = z.infer<typeof formSchema>;
+type InputType = z.infer<typeof formSchema>
 
 const formSchema = z.object({
   email: z
@@ -39,17 +39,17 @@ const formSchema = z.object({
       required_error: 'Password cannot be empty',
     })
     .min(1, { message: 'Please enter your password' }),
-});
+})
 
 interface Props {
-  callbackUrl?: string;
+  callbackUrl?: string
 }
 
 const LoginForm = ({ callbackUrl }: Props) => {
-  const [isVisiblePass, setIsVisiblePass] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const router = useRouter();
+  const [isVisiblePass, setIsVisiblePass] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const router = useRouter()
 
   const form = useForm<InputType>({
     // validate inputs
@@ -58,34 +58,34 @@ const LoginForm = ({ callbackUrl }: Props) => {
       email: '',
       password: '',
     },
-  });
+  })
 
-  const toggleVisblePass = () => setIsVisiblePass((prev) => !prev);
+  const toggleVisblePass = () => setIsVisiblePass((prev) => !prev)
 
   const onSubmit = async (values: InputType) => {
     try {
-      setIsLoading(true);
-      const response = await loginAction(values);
+      setIsLoading(true)
+      const response = await loginAction(values)
 
-      console.log('---[onSubmit]loginAction response:');
-      console.log(response);
+      console.log('---[onSubmit]loginAction response:')
+      console.log(response)
 
       if (!!response.error) {
-        setError(response.error);
+        setError(response.error)
       } else {
         // login successful, update session
         // await update()
         // router.refresh()
         // router.push(callbackUrl ? callbackUrl : "/")
-        toast('Login Successful, Welcome back!');
+        toast('Login Successful, Welcome back!')
       }
     } catch (error) {
-      console.log('---[catch] error:', error);
+      console.log('---[catch] error:', error)
       // setError("Check your Credentials")
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <Form {...form}>
@@ -182,7 +182,7 @@ const LoginForm = ({ callbackUrl }: Props) => {
         </div>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm
