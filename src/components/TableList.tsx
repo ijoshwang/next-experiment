@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Loader2Icon, RefreshCcw } from 'lucide-react'
 
 import { getCollectedUsers } from '@/lib/action'
@@ -9,9 +9,30 @@ import { ICollectedUser } from '@/types'
 import { Button } from './ui/button'
 import TableSkeleton from './TableSkeleton'
 
-const TableList = () => {
-  const [data, setData] = useState<ICollectedUser[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+const TableContent = ({ data }: { data: ICollectedUser[] }) => {
+  return (
+    <tbody className="w-full divide-y divide-border-200">
+      {data.map((item) => (
+        <tr key={item.id}>
+          <td className="table-content-cell font-medium">{item.name}</td>
+          <td className="table-content-cell text-muted-foreground">
+            {item.nickname}
+          </td>
+          <td className="table-content-cell text-muted-foreground">
+            {item.age}
+          </td>
+          <td className="table-content-cell text-muted-foreground">
+            {item.createdBy}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  )
+}
+
+const TableList = ({ initialData }: { initialData: ICollectedUser[] }) => {
+  const [data, setData] = useState<ICollectedUser[]>(initialData)
+  const [isLoading, setIsLoading] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -24,10 +45,6 @@ const TableList = () => {
     }
   }
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-
   return (
     <div className="overflow-x-auto">
       <div className="mb-4 flex justify-end sm:px-6 lg:px-8">
@@ -37,7 +54,7 @@ const TableList = () => {
           ) : (
             <RefreshCcw className="mr-2 h-4 w-4" />
           )}
-          Refresh
+          Reload
         </Button>
       </div>
       <div className="inline-block align-middle min-w-full py-2 sm:px-6 lg:px-8">
@@ -51,28 +68,7 @@ const TableList = () => {
                 <th className="table-head-cell">CreatedBy</th>
               </tr>
             </thead>
-            {isLoading ? (
-              <TableSkeleton />
-            ) : (
-              <tbody className="w-full divide-y divide-border-200">
-                {data.map((item) => (
-                  <tr key={item.id}>
-                    <td className="table-content-cell font-medium">
-                      {item.name}
-                    </td>
-                    <td className="table-content-cell text-muted-foreground">
-                      {item.nickname}
-                    </td>
-                    <td className="table-content-cell text-muted-foreground">
-                      {item.age}
-                    </td>
-                    <td className="table-content-cell text-muted-foreground">
-                      {item.createdBy}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            )}
+            {isLoading ? <TableSkeleton /> : <TableContent data={data} />}
           </table>
         </div>
       </div>

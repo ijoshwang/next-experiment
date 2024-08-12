@@ -92,18 +92,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     authorized({ auth, request }: { auth: any; request: any }) {
       console.log('=====[callback] authorized auth:', auth)
+
+      const protectedRoutes = ['/add']
+      const unprotectedRoutes = ['/login', '/register']
+
       const user = auth?.user
-      const needAuthPage = request.nextUrl?.pathname.startsWith('/add')
 
-      const isLoginPage = request.nextUrl?.pathname.startsWith('/login')
-      const isRegisterPage = request.nextUrl?.pathname.startsWith('/register')
+      const isProtectedRoute = protectedRoutes.some((prefix) =>
+        request.nextUrl.pathname.startsWith(prefix)
+      )
+      const isUnProtectdRouters = unprotectedRoutes.includes(
+        request.nextUrl.pathname
+      )
 
-      if (needAuthPage && !user) {
+      if (isProtectedRoute && !user) {
         return false
       }
 
-      if ((isRegisterPage || isLoginPage) && user) {
-        return Response.redirect(new URL('/', request.nextUrl))
+      if (isUnProtectdRouters && user) {
+        return Response.redirect(new URL('/', request.nextUrl), 307)
       }
 
       return true

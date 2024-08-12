@@ -34,8 +34,8 @@ const LoginPage = async ({ searchParams }: Props) => {
 
       <div className="flex flex-col gap-4 mt-4">
         <h5>You can use below info to login:</h5>
-        <p>Email: UserAbc1@aout.com</p>
-        <p>Password: UserAbc1@aout.com</p>
+        <p>Email: Abc1@aout.com</p>
+        <p>Password: Abc1@aout.com</p>
       </div>
     </div>
   )
