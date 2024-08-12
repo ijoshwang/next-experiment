@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,6 +16,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { VALIDATION_MESSAGE } from '@/config';
+import { addCollectedUser } from '@/lib/action';
+import { ICollectedUser } from '@/types';
+import { Loader2Icon } from 'lucide-react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 /**
  * Validation:
@@ -53,6 +58,8 @@ const formSchema = z.object({
 });
 
 const FormAdd = () => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,9 +69,31 @@ const FormAdd = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     console.log(values);
-  }
+    try {
+      setLoading(true);
+      const newUser = await addCollectedUser(values as ICollectedUser);
+      console.log('add successful new user:', newUser);
+      if (newUser) {
+        form.reset();
+
+        toast(`${newUser.name} Added successful`, {
+          // description: ``,
+          action: {
+            label: 'Go Home',
+            onClick: () => {
+              router.push('/');
+            },
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -117,7 +146,8 @@ const FormAdd = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled={loading}>
+            {loading && <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />}
             Submit
           </Button>
         </form>

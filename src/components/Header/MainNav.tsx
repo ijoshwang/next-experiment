@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
-import { navConfig } from "@/config"
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
-import { Presentation } from "lucide-react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import React from "react"
+import { navConfig } from '@/config';
+import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
+import { Presentation } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React from 'react';
 
 const MainNav = () => {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
   return (
     <div className="mr-4 hidden md:flex">
@@ -25,11 +25,11 @@ const MainNav = () => {
             key={item.title}
             href={item.href}
             className={cn(
-              "transition-colors hover:text-foreground/80",
-              (item.href === "/" && pathname === item.href) ||
-                (item.href !== "/" && pathname?.startsWith(item.href))
-                ? "text-foreground"
-                : "text-foreground/60"
+              'transition-colors hover:text-foreground/80',
+              (item.href === '/' && pathname === item.href) ||
+                (item.href !== '/' && pathname?.startsWith(item.href))
+                ? 'text-foreground'
+                : 'text-foreground/60'
             )}
           >
             {item.title}
@@ -37,7 +37,7 @@ const MainNav = () => {
         ))}
       </nav>
     </div>
-  )
-}
+  );
+};
 
-export default MainNav
+export default MainNav;

@@ -4,6 +4,9 @@ import './globals.css';
 import { siteConfig } from '@/config/site';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Header from '@/components/Header/Header';
+import { Toaster } from '@/components/ui/sonner';
+import JotaiProviders from '@/components/JotaiProvider';
+import { SessionProvider } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,19 +23,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="min-h-screen">
-            <Header />
-            <main className="w-full px-4 md:px-8 py-6 flex flex-col sm:max-w-7xl m-auto">
-              {children}
-            </main>
-          </div>
-        </ThemeProvider>
+        <JotaiProviders>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SessionProvider>
+              <div className="min-h-screen">
+                <Header />
+                <main className="w-full px-4 md:px-8 py-6 flex flex-col sm:max-w-7xl m-auto">
+                  {children}
+                </main>
+              </div>
+              <Toaster />
+            </SessionProvider>
+          </ThemeProvider>
+        </JotaiProviders>
       </body>
     </html>
   );

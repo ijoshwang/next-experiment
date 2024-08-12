@@ -1,32 +1,13 @@
-import { IUser } from '@/types';
+import { getCollectedUsers } from '@/lib/action';
+import { ICollectedUser } from '@/types';
 
 import React from 'react';
 
-const testData: IUser[] = [
-  {
-    name: 'Tom1',
-    nickname: 'IamTom',
-    age: 6,
-    createdBy: 'Jack',
-  },
-  {
-    name: 'Tom2',
-    nickname: 'IamTom',
-    age: 9,
-  },
-  {
-    name: 'Tom3',
-    nickname: 'IamTom',
-    age: 12,
-  },
-  {
-    name: 'Tom4',
-    nickname: 'IamTom',
-    age: 15,
-  },
-];
+const TableList = async () => {
+  const data: ICollectedUser[] = await getCollectedUsers();
 
-const TableList = () => {
+  console.log('---data:', data);
+
   return (
     <div className="overflow-x-auto">
       <div className="inline-block align-middle min-w-full py-2 sm:px-6 lg:px-8">
@@ -41,8 +22,8 @@ const TableList = () => {
               </tr>
             </thead>
             <tbody className="w-full divide-y divide-border-200">
-              {testData.map((item: IUser, index) => (
-                <tr key={index + item.name}>
+              {data.map((item) => (
+                <tr key={item.id}>
                   <td className="table-content-cell font-medium">
                     {item.name}
                   </td>
