@@ -71,3 +71,10 @@ Neon is a serverless Postgres platform designed to help you build reliable and s
 - **Simplicity**: Jotai offers a minimalist API, reducing boilerplate and making it easy to create and use shared state.
 - **Atomic approach**: It uses an atomic model, allowing for fine-grained updates and efficient re-renders.
 - **TypeScript friendly**: Jotai provides excellent TypeScript support out of the box, enhancing type safety and developer experience."
+
+## Tradeoffs
+
+Given the time constraints, there are a few areas that require improvement and optimization:
+
+- Component Optimization: Certain business logic currently within components should be moved to a separate layer for better organization.
+- Additional Considerations: There might be other details that were not noticed and need refinement.
