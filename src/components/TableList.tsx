@@ -33,6 +33,7 @@ const TableContent = ({ data }: { data: ICollectedUser[] }) => {
 const TableList = ({ initialData }: { initialData: ICollectedUser[] }) => {
   const [data, setData] = useState<ICollectedUser[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
+  const initData = JSON.stringify(global.Telegram)
 
   const fetchData = async () => {
     try {
@@ -47,6 +48,7 @@ const TableList = ({ initialData }: { initialData: ICollectedUser[] }) => {
 
   return (
     <div className="overflow-x-auto">
+      <h1>{initData}</h1>
       <div className="mb-4 flex justify-end sm:px-6 lg:px-8">
         <Button onClick={fetchData} variant="outline" disabled={isLoading}>
           {isLoading ? (
