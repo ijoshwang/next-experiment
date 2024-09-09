@@ -33,7 +33,7 @@ const TableContent = ({ data }: { data: ICollectedUser[] }) => {
 const TableList = ({ initialData }: { initialData: ICollectedUser[] }) => {
   const [data, setData] = useState<ICollectedUser[]>(initialData)
   const [isLoading, setIsLoading] = useState(false)
-  const initData = JSON.stringify(global.Telegram)
+  const initData = JSON.stringify((globalThis as any).Telegram)
 
   const fetchData = async () => {
     try {
